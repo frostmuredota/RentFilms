@@ -186,3 +186,17 @@ var createRent = function(){
         }
     });
 };
+
+var deleteRent = function(idClient,idMovie){
+	
+	$.ajax({
+        type: 'DELETE',
+        url: 'http://localhost:8080/RentMovies/delete/'+idClient+'/'+idMovie,
+        dataType: "json",
+        async:true,
+        complete: function(data){
+        	alert("its ok");
+        }
+    });
+    
+};

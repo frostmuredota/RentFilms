@@ -17,6 +17,8 @@ public interface ClientDao extends JpaRepository<Client,Integer>{
     public Client findByRut(String rut);
     @Query(value = "SELECT * FROM client WHERE first_name=?1 AND last_name=?2",nativeQuery=true)
     public Client findByNameAndLastName(String name , String lastname);
+    @Query(value = "SELECT * FROM rent_movie",nativeQuery=true)
+	public List<Object>allMyRents();
     /*
     @Query(value = "SELECT * FROM books inner join author on books.author_id=author.author_id",nativeQuery = true)
    public List<Book> getListBooks();

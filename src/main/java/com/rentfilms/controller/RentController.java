@@ -3,6 +3,7 @@ package com.rentfilms.controller;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -86,9 +88,32 @@ public class RentController {
 		ModelAndView view = new ModelAndView();
 		view.setViewName("rents");
 		view.addObject("clientlist", clientDao.findAll());
+		view.addObject("rentlist", clientDao.allMyRents());
 		return view;
 	}
 	
+	@RequestMapping(value="/delete/{idClient}/{idMovie}",method = DELETE)
+	public ResponseEntity<Client> deleteRent(@PathVariable("idClient") int idClient, @PathVariable("idMovie") int idMovie){
+		Client foundClient = clientDao.findOne(idClient);
+		Movie foundMovie = movieDao.findOne(idMovie);
+		
+		
+		if(foundClient!=null && foundMovie!=null){
+			
+			if(foundClient.getMyrents().contains(foundMovie)){
+                foundClient.getMyrents().remove(foundMovie);
+                clientDao.saveAndFlush(foundClient);
+				return new ResponseEntity<Client>(OK);
+			}else{
+
+			  return new ResponseEntity<Client>(NOT_FOUND);
+			}
+						
+		}else{
+
+			return new ResponseEntity<Client>(NOT_ACCEPTABLE);
+		}
+	}
 }
 
 

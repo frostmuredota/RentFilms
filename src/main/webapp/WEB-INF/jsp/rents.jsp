@@ -17,21 +17,20 @@
 					<th colspan="7">Rent List</th>
 				</tr>
 				<tr>
-				    <th>N°</th>
-				    <th>Name</th> 
+				    <th>Client</th> 
 					<th>Movie</th>
-					
+					<th>Action</th>
 				</tr>
 				<c:choose>
-					<c:when test="${clientlist.size()>0}">
+					<c:when test="${rentlist.size()>0}">
 						<c:forEach var="arr" items="${clientlist}" varStatus="loop">
 						   <c:forEach var="movie" items="${arr.myrents}" varStatus="loop1">
 						   <tr>
-								<td><c:out value="${loop1.index+1}" /></td>
-								<td><c:out value="${arr.firstName}" /></td>
+								<td><c:out value="${arr.firstName} ${arr.lastName}" /></td>
 								<td><c:out value="${movie.nameMovie}"/></td>
-							</tr>
-						
+								<td><a onclick="deleteRent(${arr.id},${movie.id})"
+									class="btn btn-danger">Delete</a></td>
+							</tr>				
 						   </c:forEach>
 						</c:forEach>
 					</c:when>
@@ -47,6 +46,6 @@
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
-	<!-- <script src="../resources/js/functions.js"></script>-->
+	<script src="resources/js/functions.js"></script>
 </body>
 </html>
