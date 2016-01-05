@@ -1,12 +1,20 @@
 package com.rentfilms.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,7 +37,8 @@ public class Movie {
 
 	@Column(name = "DURATION", unique = false, nullable = false, length = 100)
 	private int duration;
-
+	
+   
 	public Movie(String nameMovie, int duration) {
       this.nameMovie=nameMovie;
       this.duration=duration;

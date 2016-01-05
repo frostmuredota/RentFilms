@@ -26,7 +26,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 import com.rentfilms.dao.MovieDao;
 import com.rentfilms.dao.ClientDao;
-import com.rentfilms.model.Actor;
 import com.rentfilms.model.Client;
 import com.rentfilms.model.Movie;
 
@@ -54,6 +53,7 @@ public class ClientController {
 		
 		Client clientFound = dao.findByRut(client.getRut());
 		
+		
 		if(clientFound==null){
 			dao.save(client);
 			return new ResponseEntity<Client>(client,OK);
@@ -67,13 +67,6 @@ public class ClientController {
 	@ResponseBody
 	public Client getClient(@PathVariable(value = "id") int id) {
 		return dao.findOne(id);
-	}
-
-	@RequestMapping(value = "/actor")
-	@ResponseBody
-	public Actor getActor() {
-		Actor a = new Actor();
-		return a;
 	}
 
 	@RequestMapping(value = "/myclients", method = {GET,POST})

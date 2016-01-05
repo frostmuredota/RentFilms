@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -45,7 +46,7 @@ public class Client {
     private String email;
     
    
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name="RENT_MOVIE", joinColumns={@JoinColumn(name="CLIENT_ID", referencedColumnName="CLIENT_ID")}
     , inverseJoinColumns={@JoinColumn(name="MOVIE_ID", referencedColumnName="MOVIE_ID")})
     @Autowired
